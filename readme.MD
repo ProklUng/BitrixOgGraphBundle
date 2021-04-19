@@ -59,10 +59,7 @@
 ####  Статическая страница
 
 ```php
-<?php container()->get('bitrix_og_graph_bundle.facade.static')->make(
-    $arResult['IBLOCK_ID'],
-    $arResult['ID'],
-);
+<?php container()->get('bitrix_og_graph_bundle.facade.static')->make();
 ?>
 ```
 
