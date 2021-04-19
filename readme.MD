@@ -15,6 +15,7 @@
   fb_admins: '444003346913744'
   article_publisher: 'https://facebook/Example/'
 ?>
+```
 
 #### Использование
 
@@ -34,6 +35,7 @@
     $arResult['ID'],
 );
 ?>
+```
 
   og:title берется из ELEMENT_META_TITLE.
   og:description берется из ELEMENT_META_DESCRIPTION.
@@ -48,6 +50,7 @@
     $arResult['ID'],
 );
 ?>
+```
 
   og:title берется из ELEMENT_META_TITLE.
   og:description берется из ELEMENT_META_DESCRIPTION.
@@ -63,6 +66,7 @@
     $arResult['ID'],
 );
 ?>
+```
 
   og:title берется из свойства страницы title.
   og:description берется из свойства страницы description.
