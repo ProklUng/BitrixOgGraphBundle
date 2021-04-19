@@ -35,11 +35,11 @@
 ?>
 ```
 
-  og:title берется из ELEMENT_META_TITLE.
-  og:description берется из ELEMENT_META_DESCRIPTION.
-  og:img берется из PREVIEW_PICTURE. Если preview не существует, то из DETAIL_PICTURE.
-  og:timePublished из TIMESTAMP_X
-  og:url из DETAIL_PAGE_URL
+  - og:title берется из ELEMENT_META_TITLE.
+  - og:description берется из ELEMENT_META_DESCRIPTION.
+  - og:img берется из PREVIEW_PICTURE. Если preview не существует, то из DETAIL_PICTURE.
+  - og:timePublished из TIMESTAMP_X
+  - og:url из DETAIL_PAGE_URL
 
 ####  Разводящая страница
 ```php
@@ -50,11 +50,11 @@
 ?>
 ```
 
-  og:title берется из ELEMENT_META_TITLE.
-  og:description берется из ELEMENT_META_DESCRIPTION.
-  og:img берется из PICTURE.
-  og:timePublished из TIMESTAMP_X
-  og:url из SECTION_PAGE_URL
+  - og:title берется из ELEMENT_META_TITLE.
+  - og:description берется из ELEMENT_META_DESCRIPTION.
+  - og:img берется из PICTURE.
+  - og:timePublished из TIMESTAMP_X
+  - og:url из SECTION_PAGE_URL
 
 ####  Статическая страница
 
@@ -66,8 +66,8 @@
 ?>
 ```
 
-  og:title берется из свойства страницы title.
-  og:description берется из свойства страницы description.
-  og:img берется из свойства страницы og:image.
-  og:timePublished из времени последнего изменения index.php
-  og:url из SECTION_PAGE_URL
+  - og:title берется из свойства страницы title.
+  - og:description берется из свойства страницы description.
+  - og:img берется из свойства страницы og:image.
+  - og:timePublished из времени последнего изменения index.php
+  - og:url из SECTION_PAGE_URL
