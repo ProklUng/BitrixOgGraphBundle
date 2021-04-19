@@ -1,0 +1,107 @@
+parameters:
+  bitrix_og_graph_bundle_cache_ttl: 7200
+  bitrix_og_graph_bundle_cache_path: 'cache/s1/og-graph'
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Astrotomic\OpenGraph\OpenGraph: ~
+
+  bitrix_og_graph_bundle.manager:
+    class: Prokl\BitrixOgGraphBundle\Services\OpenGraphManager
+    arguments: ['@Astrotomic\OpenGraph\OpenGraph']
+
+  Prokl\BitrixOgGraphBundle\Services\OpenGraphManager: '@bitrix_og_graph_bundle.manager'
+
+  # Битриксовый Asset.
+  bitrix_og_graph_bundle.asset:
+    public: false
+    class: Bitrix\Main\Page\Asset
+    factory: ['Bitrix\Main\Page\Asset', 'getInstance']
+
+  # Битриксовый Asset.
+  bitrix_og_graph_bundle.application:
+    public: false
+    class: Bitrix\Main\Application
+    factory: ['Bitrix\Main\Application', 'getInstance']
+
+  # Битриксовый CFile.
+  bitrix_og_graph_bundle.cfile_native:
+    public: false
+    class: CFile
+
+  # Обертка над CFile.
+  bitrix_og_graph_bundle.cfile:
+    public: false
+    class: Prokl\BitrixOgGraphBundle\Services\Utils\CFileWrapper
+    arguments: ['@bitrix_og_graph_bundle.cfile_native']
+
+  bitrix_og_graph_bundle.ciblocksection:
+    public: false
+    class: CIBlockSection
+
+  bitrix_og_graph_bundle.ciblockelement:
+    public: false
+    class: CIBlockElement
+
+  # Инжектор.
+  bitrix_og_graph_bundle.injector:
+    class: Prokl\BitrixOgGraphBundle\Services\InjectGraph
+    arguments: ['@bitrix_og_graph_bundle.manager', '@bitrix_og_graph_bundle.asset']
+
+  # Детальные страницы.
+  bitrix_og_graph_bundle.detail_page_processor:
+    class: Prokl\BitrixOgGraphBundle\Services\DetailPageProcessor
+    arguments: ['@bitrix_og_graph_bundle.ciblockelement', '@bitrix_og_graph_bundle.cfile', '@bitrix_og_graph_bundle.cacher']
+
+  # Подразделы инфоблоков.
+  bitrix_og_graph_bundle.section_processor:
+    class: Prokl\BitrixOgGraphBundle\Services\SectionsProcessor
+    arguments: ['@bitrix_og_graph_bundle.ciblocksection', '@bitrix_og_graph_bundle.cfile', '@bitrix_og_graph_bundle.cacher']
+
+  # Статические страницы.
+  bitrix_og_graph_bundle.static_processor:
+    class: Prokl\BitrixOgGraphBundle\Services\StaticPageProcessor
+    arguments: ['%kernel.project_dir%', '@bitrix_og_graph_bundle.application', '@bitrix_og_graph_bundle.cacher']
+
+  # DTO по умолчанию
+  bitrix_og_graph_bundle.default_dto:
+    shared: false
+    class: Prokl\BitrixOgGraphBundle\Services\OgDTO
+    factory: ['Prokl\BitrixOgGraphBundle\Services\OgDTO', 'fromConfig']
+    arguments: ['%bitrix.og_graph.parameters%']
+
+  #########
+  # Кэшер
+  #########
+  bitrix_og_graph_bundle.cacher:
+    class: WebArch\BitrixCache\AntiStampedeCacheAdapter
+    arguments: ['/', '%bitrix_og_graph_bundle_cache_ttl%', '%bitrix_og_graph_bundle_cache_path%']
+
+  #########
+  # Фасады
+  ########
+
+  bitrix_og_graph_bundle.facade.element:
+    class: Prokl\BitrixOgGraphBundle\Services\Facades\FacadeOgGraphDetailPage
+    arguments:
+      - '@bitrix_og_graph_bundle.detail_page_processor'
+      - '@bitrix_og_graph_bundle.injector'
+      - '@bitrix_og_graph_bundle.default_dto'
+
+  bitrix_og_graph_bundle.facade.section:
+    class: Prokl\BitrixOgGraphBundle\Services\Facades\FacadeOgGraphSection
+    arguments:
+      - '@bitrix_og_graph_bundle.section_processor'
+      - '@bitrix_og_graph_bundle.injector'
+      - '@bitrix_og_graph_bundle.default_dto'
+
+  bitrix_og_graph_bundle.facade.static:
+    class: Prokl\BitrixOgGraphBundle\Services\Facades\FacadeOgGraphStatic
+    arguments:
+      - '@bitrix_og_graph_bundle.static_processor'
+      - '@bitrix_og_graph_bundle.injector'
+      - '@bitrix_og_graph_bundle.default_dto'
