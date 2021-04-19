@@ -7,12 +7,14 @@
 
 Задаются og метки по умолчанию.
 
-bitrixoggraph:
+```php
+<?php bitrixoggraph:
   enabled: true # Бандл активирован?
   site_name: 'EXAMPLE.RU'
   img: '/favicon.ico'
   fb_admins: '444003346913744'
   article_publisher: 'https://facebook/Example/'
+?>
 
 #### Использование
 
@@ -26,10 +28,12 @@ bitrixoggraph:
 
 1. Детальная страница.
 
-container()->get('bitrix_og_graph_bundle.facade.element')->make(
+```php
+<?php container()->get('bitrix_og_graph_bundle.facade.element')->make(
     $arResult['IBLOCK_ID'],
     $arResult['ID'],
 );
+?>
 
   og:title берется из ELEMENT_META_TITLE.
   og:description берется из ELEMENT_META_DESCRIPTION.
@@ -38,11 +42,12 @@ container()->get('bitrix_og_graph_bundle.facade.element')->make(
   og:url из DETAIL_PAGE_URL
 
 2. Разводящая страница.
-
-container()->get('bitrix_og_graph_bundle.facade.section')->make(
+```php
+<?php container()->get('bitrix_og_graph_bundle.facade.section')->make(
     $arResult['IBLOCK_ID'],
     $arResult['ID'],
 );
+?>
 
   og:title берется из ELEMENT_META_TITLE.
   og:description берется из ELEMENT_META_DESCRIPTION.
@@ -52,10 +57,12 @@ container()->get('bitrix_og_graph_bundle.facade.section')->make(
 
 3. Статическая страница.
 
-container()->get('bitrix_og_graph_bundle.facade.static')->make(
+```php
+<?php container()->get('bitrix_og_graph_bundle.facade.static')->make(
     $arResult['IBLOCK_ID'],
     $arResult['ID'],
 );
+?>
 
   og:title берется из свойства страницы title.
   og:description берется из свойства страницы description.
