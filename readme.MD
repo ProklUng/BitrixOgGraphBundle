@@ -1,7 +1,6 @@
-##### Бандл управления OG разметкой для Битрикс + Symfony
+# Бандл управления OG разметкой для Битрикс + Symfony
 
-
-#### Конфигурация
+## Конфигурация
 
 Файл: local/configs/packages/bitrix_og_graph.yaml
 
@@ -16,8 +15,7 @@
   article_publisher: 'https://facebook/Example/'
 ?>
 ```
-
-#### Использование
+## Использование
 
 Фасады для использования в компонентах (component_epilog.php) и статических страницах:
 
@@ -27,7 +25,7 @@
   - container() - хэлпер доступа к экземпляру контейнера. Включен в базовый комплект
     конструкции Symfony-Bitrix.
 
-1. Детальная страница.
+#### Детальная страница
 
 ```php
 <?php container()->get('bitrix_og_graph_bundle.facade.element')->make(
@@ -43,7 +41,7 @@
   og:timePublished из TIMESTAMP_X
   og:url из DETAIL_PAGE_URL
 
-2. Разводящая страница.
+####  Разводящая страница
 ```php
 <?php container()->get('bitrix_og_graph_bundle.facade.section')->make(
     $arResult['IBLOCK_ID'],
@@ -58,7 +56,7 @@
   og:timePublished из TIMESTAMP_X
   og:url из SECTION_PAGE_URL
 
-3. Статическая страница.
+####  Статическая страница
 
 ```php
 <?php container()->get('bitrix_og_graph_bundle.facade.static')->make(
