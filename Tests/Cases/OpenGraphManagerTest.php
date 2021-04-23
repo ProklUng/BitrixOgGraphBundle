@@ -1,13 +1,11 @@
 <?php
 
-namespace Prokl\BitrixOgGraphBundle\Tests;
+namespace Prokl\BitrixOgGraphBundle\Tests\Cases;
 
 use Astrotomic\OpenGraph\OpenGraph;
-use Faker\Factory;
-use League\FactoryMuffin\Faker\Faker;
 use Prokl\BitrixOgGraphBundle\Services\OgDTO;
 use Prokl\BitrixOgGraphBundle\Services\OpenGraphManager;
-use PHPUnit\Framework\TestCase;
+use Prokl\BitrixTestingTools\Base\BitrixableTestCase;
 
 /**
  * Class OpenGraphManagerTest
@@ -16,17 +14,12 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 13.10.2020
  */
-class OpenGraphManagerTest extends TestCase
+class OpenGraphManagerTest extends BitrixableTestCase
 {
     /**
      * @var OpenGraphManager $obTestObject
      */
     protected $obTestObject;
-
-    /**
-     * @var Faker
-     */
-    private $faker;
 
     /**
      * @var OgDTO $dtoOpenGraph DTO для теста.
@@ -39,7 +32,6 @@ class OpenGraphManagerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->faker = Factory::create();
         $this->dtoOpenGraph = new ogDTO([]);
     }
 

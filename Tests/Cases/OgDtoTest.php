@@ -1,11 +1,10 @@
 <?php
 
-namespace Prokl\BitrixOgGraphBundle\Tests;
+namespace Prokl\BitrixOgGraphBundle\Tests\Cases;
 
 use Faker\Factory;
 use Prokl\BitrixOgGraphBundle\Services\OgDTO;
-use Mockery;
-use PHPUnit\Framework\TestCase;
+use Prokl\BitrixTestingTools\Base\BitrixableTestCase;
 
 /**
  * Class OgDtoTest
@@ -13,12 +12,12 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 21.02.2021
  */
-class OgDtoTest extends TestCase
+class OgDtoTest extends BitrixableTestCase
 {
     /**
      * @var ogDTO $obTestObject
      */
-    private $obTestObject;
+    protected $obTestObject;
 
     /**
      * @var array $fixture
@@ -30,7 +29,6 @@ class OgDtoTest extends TestCase
      */
     protected function setUp(): void
     {
-        Mockery::resetContainer();
         parent::setUp();
 
         $faker = Factory::create();
@@ -47,15 +45,6 @@ class OgDtoTest extends TestCase
         ];
 
         $this->obTestObject = new ogDTO([]);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Mockery::close();
     }
 
     /**

@@ -1,25 +1,25 @@
 <?php
 
-namespace Prokl\BitrixOgGraphBundle\Tests;
+namespace Prokl\BitrixOgGraphBundle\Tests\Cases;
 
-use Prokl\BitrixOgGraphBundle\Services\Facades\FacadeOgGraphStatic;
+use Prokl\BitrixOgGraphBundle\Services\Facades\FacadeOgGraphSection;
 use Prokl\BitrixOgGraphBundle\Services\InjectGraph;
 use Prokl\BitrixOgGraphBundle\Services\OgDTO;
-use Prokl\BitrixOgGraphBundle\Services\StaticPageProcessor;
+use Prokl\BitrixOgGraphBundle\Services\SectionsProcessor;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Prokl\BitrixTestingTools\Base\BitrixableTestCase;
 use Psr\Cache\InvalidArgumentException;
 
 /**
  * Class FacadeOgGraphDetailPageTest
- * @package Prokl\BitrixOgGraphBundle\Tests
+ * @package Prokl\BitrixOgGraphBundle\Tests\Cases
  *
  * @since 21.02.2021
  */
-class FacadeOgGraphStaticTest extends TestCase
+class FacadeOgGraphSectionTest extends BitrixableTestCase
 {
     /**
-     * @var FacadeOgGraphStatic $obTestObject
+     * @var FacadeOgGraphSection $obTestObject
      */
     protected $obTestObject;
 
@@ -28,23 +28,13 @@ class FacadeOgGraphStaticTest extends TestCase
      */
     protected function setUp(): void
     {
-        Mockery::resetContainer();
         parent::setUp();
         $dtoOpenGraph = new ogDTO([]);
-        $this->obTestObject = new FacadeOgGraphStatic(
-            $this->getMockStaticPageProcessor(),
+        $this->obTestObject = new FacadeOgGraphSection(
+            $this->getMockSectionProcessor(),
             $this->getMockInjectGraph(),
             $dtoOpenGraph
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Mockery::close();
     }
 
     /**
@@ -55,19 +45,22 @@ class FacadeOgGraphStaticTest extends TestCase
      */
     public function testMake() : void
     {
-        $this->obTestObject->make();
+        $this->obTestObject->make(1, 1);
 
         $this->assertTrue(true);
     }
 
     /**
-     * Мок StaticPageProcessor.
+     * Мок SectionsProcessor.
      *
      * @return mixed
      */
-    private function getMockStaticPageProcessor()
+    private function getMockSectionProcessor()
     {
-        $mock = Mockery::mock(StaticPageProcessor::class)->makePartial();
+        $mock = Mockery::mock(SectionsProcessor::class)->makePartial();
+
+        $mock->shouldReceive('setIblockId')->once()->andReturnSelf();
+        $mock->shouldReceive('setIdSection')->once()->andReturnSelf();
         $mock = $mock->shouldReceive('go')->once()->andReturn(['test']);
 
         return $mock->getMock();

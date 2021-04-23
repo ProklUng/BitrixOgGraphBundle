@@ -1,6 +1,6 @@
 <?php
 
-namespace Prokl\BitrixOgGraphBundle\Tests;
+namespace Prokl\BitrixOgGraphBundle\Tests\Cases;
 
 use CFile;
 use CIBlockSection;
@@ -8,8 +8,8 @@ use Faker\Factory;
 use Faker\Generator;
 use Prokl\BitrixOgGraphBundle\Services\SectionsProcessor;
 use Prokl\BitrixOgGraphBundle\Services\Utils\CFileWrapper;
-use Prokl\BitrixOgGraphBundle\Tests\Tools\MockerBitrixBlocks;
-use Prokl\BitrixOgGraphBundle\Tests\Tools\MockerBitrixSeo;
+use Prokl\BitrixTestingTools\Mockers\MockerBitrixBlocks;
+use Prokl\BitrixTestingTools\Mockers\MockerBitrixSeo;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\InvalidArgumentException;
@@ -17,7 +17,7 @@ use WebArch\BitrixCache\AntiStampedeCacheAdapter;
 
 /**
  * Class SectionsProcessorTest
- * @package Prokl\BitrixOgGraphBundle\Tests
+ * @package Prokl\BitrixOgGraphBundle\Tests\Cases
  * @coversDefaultClass SectionsProcessor
  *
  * @runTestsInSeparateProcesses

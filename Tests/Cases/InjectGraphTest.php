@@ -1,15 +1,14 @@
 <?php
 
-namespace Prokl\BitrixOgGraphBundle\Tests;
+namespace Prokl\BitrixOgGraphBundle\Tests\Cases;
 
 use Bitrix\Main\Page\Asset;
 use Faker\Factory;
-use Faker\Generator;
 use Prokl\BitrixOgGraphBundle\Services\InjectGraph;
 use Prokl\BitrixOgGraphBundle\Services\OgDTO;
 use Prokl\BitrixOgGraphBundle\Services\OpenGraphManager;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Prokl\BitrixTestingTools\Base\BitrixableTestCase;
 
 /**
  * Class InjectGraphTest
@@ -18,17 +17,12 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 19.02.20201
  */
-class InjectGraphTest extends TestCase
+class InjectGraphTest extends BitrixableTestCase
 {
     /**
      * @var InjectGraph $obTestObject
      */
-    private $obTestObject;
-
-    /**
-     * @var Generator
-     */
-    private $faker;
+    protected $obTestObject;
 
     /**
      * @var OgDTO $dtoOpenGraph DTO для теста.
@@ -37,7 +31,6 @@ class InjectGraphTest extends TestCase
 
     protected function setUp(): void
     {
-        Mockery::resetContainer();
         parent::setUp();
         $this->faker = Factory::create();
         $this->dtoOpenGraph = new ogDTO([]);
@@ -45,15 +38,6 @@ class InjectGraphTest extends TestCase
             $this->getMockOpenGraphManager(),
             Asset::getInstance()
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Mockery::close();
     }
 
     /**

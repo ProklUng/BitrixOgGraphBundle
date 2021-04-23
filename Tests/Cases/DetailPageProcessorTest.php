@@ -1,17 +1,14 @@
 <?php
 
-namespace Prokl\BitrixOgGraphBundle\Tests;
+namespace Prokl\BitrixOgGraphBundle\Tests\Cases;
 
 use CFile;
 use CIBlockElement;
-use Faker\Factory;
-use Faker\Generator;
 use Prokl\BitrixOgGraphBundle\Services\DetailPageProcessor;
 use Prokl\BitrixOgGraphBundle\Services\Utils\CFileWrapper;
-use Prokl\BitrixOgGraphBundle\Tests\Tools\MockerBitrixBlocks;
-use Prokl\BitrixOgGraphBundle\Tests\Tools\MockerBitrixSeo;
-use Mockery;
-use PHPUnit\Framework\TestCase;
+use Prokl\BitrixTestingTools\Base\BitrixableTestCase;
+use Prokl\BitrixTestingTools\Mockers\MockerBitrixBlocks;
+use Prokl\BitrixTestingTools\Mockers\MockerBitrixSeo;
 use Psr\Cache\InvalidArgumentException;
 use WebArch\BitrixCache\AntiStampedeCacheAdapter;
 
@@ -25,26 +22,27 @@ use WebArch\BitrixCache\AntiStampedeCacheAdapter;
  *
  * @since 20.02.20201
  */
-class DetailPageProcessorTest extends TestCase
+class DetailPageProcessorTest extends BitrixableTestCase
 {
     /**
      * @var DetailPageProcessor $obTestObject
      */
-    private $obTestObject;
-
-    /**
-     * @var Generator
-     */
-    private $faker;
+    protected $obTestObject;
 
     /**
      * @inheritDoc
      */
     protected function setUp(): void
     {
-        Mockery::resetContainer();
         parent::setUp();
-        $this->faker = Factory::create();
+
+//        putenv('MYSQL_HOST=localhost');
+//        putenv('MYSQL_DATABASE=bitrix_ci');
+//        putenv('MYSQL_USER=root');
+//        putenv('MYSQL_PASSWORD=');
+//
+//        // \Sheerockoff\BitrixCi\Bootstrap::migrate();
+//        \Sheerockoff\BitrixCi\Bootstrap::bootstrap();
 
         $mockCIBlockElement = new MockerBitrixBlocks(CIBlockElement::class);
         $mockCIBlockElement->setFixture([
@@ -65,15 +63,6 @@ class DetailPageProcessorTest extends TestCase
                 '/', 0, '/cache/s1/test/'
             )
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Mockery::close();
     }
 
     /**

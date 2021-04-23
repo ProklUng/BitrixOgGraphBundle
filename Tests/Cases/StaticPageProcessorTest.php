@@ -1,35 +1,27 @@
 <?php
 
-namespace Prokl\BitrixOgGraphBundle\Tests;
+namespace Prokl\BitrixOgGraphBundle\Tests\Cases;
 
 use Bitrix\Main\Application;
-use Faker\Factory;
-use Faker\Generator;
 use Prokl\BitrixOgGraphBundle\Services\OgDTO;
 use Prokl\BitrixOgGraphBundle\Services\StaticPageProcessor;
-use Mockery;
-use PHPUnit\Framework\TestCase;
+use Prokl\BitrixTestingTools\Base\BitrixableTestCase;
 use Psr\Cache\InvalidArgumentException;
 use WebArch\BitrixCache\AntiStampedeCacheAdapter;
 
 /**
  * Class StaticPageProcessorTest
- * @package Prokl\BitrixOgGraphBundle\Tests
+ * @package Prokl\BitrixOgGraphBundle\Tests\Cases
  * @coversDefaultClass StaticPageProcessor
  *
  * @since 20.02.20201
  */
-class StaticPageProcessorTest extends TestCase
+class StaticPageProcessorTest extends BitrixableTestCase
 {
     /**
      * @var StaticPageProcessor $obTestObject
      */
     protected $obTestObject;
-
-    /**
-     * @var Generator
-     */
-    private $faker;
 
     /**
      * @var OgDTO $dtoOpenGraph DTO для теста.
@@ -38,9 +30,7 @@ class StaticPageProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        Mockery::resetContainer();
         parent::setUp();
-        $this->faker = Factory::create();
 
         $this->dtoOpenGraph = new ogDTO([]);
         $this->obTestObject = new StaticPageProcessor(
@@ -50,15 +40,6 @@ class StaticPageProcessorTest extends TestCase
                 '/', 0, '/cache/s1/test/'
             )
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Mockery::close();
     }
 
     /**
@@ -73,6 +54,8 @@ class StaticPageProcessorTest extends TestCase
         $GLOBALS['APPLICATION']->SetPageProperty('description', 'test description');
 
         $result = $this->obTestObject->go();
+
+        $GLOBALS['APPLICATION']->RestartBuffer();
 
         $this->assertEmpty(
             $result['timePublished'],

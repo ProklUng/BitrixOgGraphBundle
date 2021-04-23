@@ -1,22 +1,22 @@
 <?php
 
-namespace Prokl\BitrixOgGraphBundle\Tests;
+namespace Prokl\BitrixOgGraphBundle\Tests\Cases;
 
 use Prokl\BitrixOgGraphBundle\Services\DetailPageProcessor;
 use Prokl\BitrixOgGraphBundle\Services\Facades\FacadeOgGraphDetailPage;
 use Prokl\BitrixOgGraphBundle\Services\InjectGraph;
 use Prokl\BitrixOgGraphBundle\Services\OgDTO;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Prokl\BitrixTestingTools\Base\BitrixableTestCase;
 use Psr\Cache\InvalidArgumentException;
 
 /**
  * Class FacadeOgGraphDetailPageTest
- * @package Prokl\BitrixOgGraphBundle\Tests
+ * @package Prokl\BitrixOgGraphBundle\Tests\Cases
  *
  * @since 20.02.2021
  */
-class FacadeOgGraphDetailPageTest extends TestCase
+class FacadeOgGraphDetailPageTest extends BitrixableTestCase
 {
     /**
      * @var FacadeOgGraphDetailPage $obTestObject
@@ -28,7 +28,6 @@ class FacadeOgGraphDetailPageTest extends TestCase
      */
     protected function setUp(): void
     {
-        Mockery::resetContainer();
         parent::setUp();
         $dtoOpenGraph = new ogDTO([]);
         $this->obTestObject = new FacadeOgGraphDetailPage(
@@ -36,15 +35,6 @@ class FacadeOgGraphDetailPageTest extends TestCase
             $this->getMockInjectGraph(),
             $dtoOpenGraph
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Mockery::close();
     }
 
     /**
