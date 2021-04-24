@@ -9,6 +9,9 @@ use Prokl\BitrixOgGraphBundle\Services\Utils\CFileWrapper;
 use Prokl\BitrixTestingTools\Base\BitrixableTestCase;
 use Prokl\BitrixTestingTools\Mockers\MockerBitrixBlocks;
 use Prokl\BitrixTestingTools\Mockers\MockerBitrixSeo;
+use Prokl\BitrixTestingTools\Traits\CustomDumpTrait;
+use Prokl\BitrixTestingTools\Traits\ResetDatabaseTrait;
+use Prokl\BitrixTestingTools\Traits\UseMigrationsTrait;
 use Psr\Cache\InvalidArgumentException;
 use WebArch\BitrixCache\AntiStampedeCacheAdapter;
 
@@ -24,10 +27,24 @@ use WebArch\BitrixCache\AntiStampedeCacheAdapter;
  */
 class DetailPageProcessorTest extends BitrixableTestCase
 {
+    // use ResetDatabaseTrait;
+    // use CustomDumpTrait;
+    // use UseMigrationsTrait;
+
     /**
      * @var DetailPageProcessor $obTestObject
      */
     protected $obTestObject;
+
+    protected function getDumpPath() : string
+    {
+        return $_SERVER['DOCUMENT_ROOT'] . '/Tests/dump/dump.sql';
+    }
+
+    protected function getMigrationsDir() : string
+    {
+        return __DIR__ . '/../migrations';
+    }
 
     /**
      * @inheritDoc
@@ -35,14 +52,6 @@ class DetailPageProcessorTest extends BitrixableTestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-//        putenv('MYSQL_HOST=localhost');
-//        putenv('MYSQL_DATABASE=bitrix_ci');
-//        putenv('MYSQL_USER=root');
-//        putenv('MYSQL_PASSWORD=');
-//
-//        // \Sheerockoff\BitrixCi\Bootstrap::migrate();
-//        \Sheerockoff\BitrixCi\Bootstrap::bootstrap();
 
         $mockCIBlockElement = new MockerBitrixBlocks(CIBlockElement::class);
         $mockCIBlockElement->setFixture([
