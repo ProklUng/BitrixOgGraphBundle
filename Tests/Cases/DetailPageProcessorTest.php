@@ -4,6 +4,7 @@ namespace Prokl\BitrixOgGraphBundle\Tests\Cases;
 
 use CFile;
 use CIBlockElement;
+use Mockery;
 use Prokl\BitrixOgGraphBundle\Services\DetailPageProcessor;
 use Prokl\BitrixOgGraphBundle\Services\Utils\CFileWrapper;
 use Prokl\BitrixTestingTools\Base\BitrixableTestCase;
@@ -27,9 +28,9 @@ use WebArch\BitrixCache\AntiStampedeCacheAdapter;
  */
 class DetailPageProcessorTest extends BitrixableTestCase
 {
-    // use ResetDatabaseTrait;
-    // use CustomDumpTrait;
-    // use UseMigrationsTrait;
+   // use ResetDatabaseTrait;
+   // use CustomDumpTrait;
+    use UseMigrationsTrait;
 
     /**
      * @var DetailPageProcessor $obTestObject
@@ -38,7 +39,7 @@ class DetailPageProcessorTest extends BitrixableTestCase
 
     protected function getDumpPath() : string
     {
-        return $_SERVER['DOCUMENT_ROOT'] . '/Tests/dump/dump.sql';
+        return $_SERVER['DOCUMENT_ROOT'] . '/Tests/dump/loc.sql';
     }
 
     protected function getMigrationsDir() : string
@@ -85,6 +86,8 @@ class DetailPageProcessorTest extends BitrixableTestCase
      */
     public function testGo(): void
     {
+        // $this->makeMigration('CSV', 'default');
+
         $result = $this->obTestObject->go();
 
         $this->assertSame('test name', $result['title'], 'Title не обработан.');
