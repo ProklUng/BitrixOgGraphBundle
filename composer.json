@@ -30,6 +30,7 @@
     "require": {
         "php": ">=7.3",
         "symfony/dependency-injection": "^3.4 || ^4.0 || ^5.0",
+        "symfony/http-kernel": "^4.0 || ^5.0",
         "symfony/config": "~4|~5",
         "symfony/string": "^4.0 || ^5.0",
         "astrotomic/php-open-graph": "^0.5.2",
