@@ -30,10 +30,11 @@
     "require": {
         "php": ">=7.3",
         "symfony/dependency-injection": "^3.4 || ^4.0 || ^5.0",
-        "symfony/string": "^4.0 || ^5.2",
+        "symfony/string": "^4.0 || ^5.0",
         "astrotomic/php-open-graph": "^0.5.2",
         "spatie/data-transfer-object": "^2.5",
-        "webarchitect609/bitrix-cache": "^1.9"
+        "webarchitect609/bitrix-cache": "^1.9",
+        "symfony/cache": "^4 || ^5"
     },
     "require-dev": {
         "proklung/bitrix-phpunit-testing-tools": "^1.0",
