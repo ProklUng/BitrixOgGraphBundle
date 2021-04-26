@@ -12,6 +12,7 @@ use Prokl\BitrixTestingTools\Mockers\MockerBitrixBlocks;
 use Prokl\BitrixTestingTools\Mockers\MockerBitrixSeo;
 use Prokl\BitrixTestingTools\Traits\CustomDumpTrait;
 use Prokl\BitrixTestingTools\Traits\ResetDatabaseTrait;
+use Prokl\BitrixTestingTools\Traits\SprintMigrationsTrait;
 use Prokl\BitrixTestingTools\Traits\UseMigrationsTrait;
 use Psr\Cache\InvalidArgumentException;
 use WebArch\BitrixCache\AntiStampedeCacheAdapter;
@@ -30,7 +31,8 @@ class DetailPageProcessorTest extends BitrixableTestCase
 {
    // use ResetDatabaseTrait;
    // use CustomDumpTrait;
-    use UseMigrationsTrait;
+   // use UseMigrationsTrait;
+   use SprintMigrationsTrait;
 
     /**
      * @var DetailPageProcessor $obTestObject
@@ -86,8 +88,6 @@ class DetailPageProcessorTest extends BitrixableTestCase
      */
     public function testGo(): void
     {
-        // $this->makeMigration('CSV', 'default');
-
         $result = $this->obTestObject->go();
 
         $this->assertSame('test name', $result['title'], 'Title не обработан.');
