@@ -135,7 +135,7 @@ class DetailPageProcessor extends AbstractProcessor
             );
             $arResult['type'] = 'article';
             $arResult['timePublished'] = $ob['TIMESTAMP_X'];
-            $arResult['url'] = $this->getFullUrl((string)$ob['DETAIL_PAGE_URL']) ?? '';
+            $arResult['url'] = $this->getFullUrl($ob['DETAIL_PAGE_URL']) ?? '';
 
             $idPicture = (int)$ob['PREVIEW_PICTURE'];
             if (!$idPicture) {
